@@ -1,114 +1,223 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
-
 const inter = Inter({ subsets: ['latin'] })
 
+import { useEffect, useRef } from 'react'
+
+
+import Link from 'next/link'
+import styles from '@/styles/Home.module.css'
+import { Container, Card, Row, Col } from "react-bootstrap"
+import { Parallax } from 'react-parallax'
+
+
+
+// icons
+
+import { MdOutlineThumbUpAlt } from "react-icons/md";
+import { GoComment } from "react-icons/go";
+import { LuLightbulb } from "react-icons/lu";
+import { FaUserGraduate } from "react-icons/fa";
+import HomeCard from '@/components/home-card'
+
+import gsap from "gsap";
+import ScrollTrigger from "gsap/dist/ScrollTrigger";
+
+import pageText from '@/config/text'
+
+import homeStyle from './home.module.scss'
+
+
 export default function Home() {
+
+  const triggerRef = useRef<HTMLDivElement>(null);
+
+  const companyName = 'Ropetest'
+
+  //ROPESYS GmbH
+
+  const title = 'Your specialist for modern rope testing devices'
+  const description = `${companyName} offers a modern system for the magnetic inspection of ropes in various sizes and designs.`
+
+    useEffect(() => {
+
+      // don't forget to register plugins
+
+      gsap.registerPlugin(ScrollTrigger)
+      
+      gsap.to('.react-parallax-bgimage', {duration: 1, scale: 1.05})
+
+      //gsap.to('.bg-anim', {duration: 1, x: -10, y: -10})
+      //gsap.fromTo(".bg-anim", {scale: 0.95}, {scale:1.0, duration: 1});
+
+      gsap.to('.text-anim', {duration: 1, x: -10, y: -10})
+
+      moveAndFadeIn()
+  })
+
+  const moveAndFadeIn = () => {
+    gsap.to('.fade-in', {
+      scrollTrigger: {
+        trigger: '.trigger',
+        // start: "top bottom",
+        // toggleActions: "play none none reverse"
+      },
+      opacity: 1,
+      y: 0,
+      duration: 2,
+      stagger: function(index, target, list) {
+        // your custom logic here. Return the delay from the start (not between each)
+        return index
+      }
+    })
+
+    gsap.to('.image-carousel img', {
+      scrollTrigger: {
+        trigger: '.image-carousel',
+      },
+      scale: 1.0, 
+      duration: 1
+    })
+  }
+
+  const Banner = () => {
+    return  (
+      <Parallax className='bg-anim' strength={200} bgImage="assets/images/cablecar.webp">
+
+          <div className={styles.content + ' ' + homeStyle.home }>
+            <Container>
+              <Row>
+                <Col xs={1}></Col>
+
+                <Col className='text-anim' xs="12" md="6">
+                  <h1 className={'h1 ' + styles.h1}>{pageText.home.yourSpecialist}</h1>
+                  <h2 className={'h2 ' + styles.h2}>{pageText.home.ropetest}</h2>
+                  <p>{pageText.home.theTechnology}</p>
+                </Col>
+
+                <Col></Col>
+
+              </Row>
+
+            </Container>
+          </div>
+      </Parallax>)
+  }
+
+  const Section1 = () => {
+    return       (<Container fluid className={'pt-5 pb-5 section'}>
+
+      <Row>
+        <Col className='col-12 col-md-6' >
+          <HomeCard title="application areas" paragraphs={pageText.home.card1} >
+            <div className={styles.circle}>
+              <MdOutlineThumbUpAlt size="2em" />
+            </div>
+          </HomeCard>
+        </Col>
+
+        <Col className='col-12 col-md-6'>
+          <HomeCard title="technology" paragraphs={pageText.home.card2} >
+            <div className={styles.circle}>
+              <LuLightbulb size="2em" />
+            </div>
+          </HomeCard>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col className='col-12 col-md-6'>
+          <HomeCard title="training" paragraphs={pageText.home.card3} >
+            <div className={styles.circle}>
+              <MdOutlineThumbUpAlt size="2em" />
+            </div>
+          </HomeCard>
+        </Col>
+
+        <Col className='col-12 col-md-6'>
+          <HomeCard title="rope testers" paragraphs={pageText.home.card4} >
+            <div className={styles.circle}>
+              <MdOutlineThumbUpAlt size="2em" />
+            </div>
+          </HomeCard>
+        </Col>
+      </Row>
+
+  </Container>)
+  }
+
+  const Section2 = () => {
+    return (<Container fluid className={'pt-5 pb-5 trigger section-white'}>
+
+        <div className='row'>
+
+          <div ref={triggerRef} className='col'>
+              <h3 className={ styles.fadeStart + ' fade-in '}>{pageText.home.section2.header}</h3>
+              <p className={ styles.fadeStart + ' fade-in '}>{pageText.home.section2.text}</p>
+          </div>
+          
+          <div className='col'>
+            <img style={{width: 400, height: 400}} src='assets/images/ropesys_R58_small.webp' alt='steel rope' />
+          </div>
+
+        </div>
+
+    </Container>)
+  }
+
   return (
-    <>
+    <div className={homeStyle.home}>
       <Head>
-        <title>Create Next App</title>
+        <title>Home - Ropetest</title>
         <meta name="description" content="Generated by create next app" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+
+        <link rel="preload" href="/ropetest.com.au/assets/fonts/SourceSansPro-Regular.ttf" as="font" type="font/ttf" />
+        <link rel="preload" href="/ropetest.com.au/assets/fonts/oxygen.bold.ttf" as="font" type="font/ttf" />
+
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>pages/index.tsx</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
-        </div>
 
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-        </div>
+      <Banner />
 
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
+      <Section1 />
 
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
+      <Section2 />
 
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
+      <Container fluid className='image-carousel'>
+        <Row>
+          <Col className='g-0'><img className='img-fluid' src='assets/images/Koblenz_SMART_R58.webp' alt='koblenz'/></Col>
+          <Col className='g-0'><img className='img-fluid' src='assets/images/ROPESYS-Seilpruefgeraet-4-1-1.webp' alt='seilpruegeraet'/></Col>
+          <Col className='g-0'><img className='img-fluid' src='assets/images/4-1024x768-1.webp' alt='steel rope'/></Col>
+          <Col className='g-0'><img className='img-fluid' src='assets/images/Tagebau_R58-1.webp' alt='tagebau'/></Col>
+        </Row>
+      </Container>
 
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-    </>
+      <Container fluid className='pt-5 pb-5 trigger section-white'>
+
+          <Row>
+            <Col>
+                <h3>ROPETEST</h3>
+                <div>©2023 Ropetest </div>
+            </Col>
+
+            <Col>
+              <div>Queensland</div>
+              <div>Email: terry@ropetest.com.au</div>
+              <div>Phone: +61 (0) 426 628 073</div>
+            </Col>
+
+            <Col>
+              <div><Link href='/tandc/privacy'>Privacy Policy</Link></div>
+              <div><Link href='/tandc/terms'>Terms and Conditions</Link></div>
+              <div><Link href='/tandc/contact'>Contact and Directions</Link></div>
+            </Col>
+
+          </Row>
+
+      </Container>
+
+    </div>
   )
 }

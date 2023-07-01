@@ -1,0 +1,11 @@
+.ropetest_card_title {
+    font-family: 'Oxygen';
+    font-weight: bold;
+    color: var(--ropetest-red);
+    font-size: 22px;
+  }
+
+.card_text_spacer { 
+    font-family: SourceSansPro-Regular;
+    font-size: 20px;
+    margin-bottom: 10px; }
