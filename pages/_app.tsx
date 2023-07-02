@@ -7,8 +7,6 @@ import Navbar from '@/components/navbar'
 import NextNProgress from 'nextjs-progressbar'
 import { SSRProvider } from 'react-bootstrap';
 
-
-
 export default function App({ Component, pageProps }: AppProps) {
 
   return (
