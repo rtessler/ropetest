@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import styles from 'components/navbar.module.css';
 
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
@@ -10,7 +9,7 @@ import ScrollTrigger from "gsap/dist/ScrollTrigger";
 
 const NavBar = () => {
 
-    enum DropdownId {PURSUE, DEVICES, APPLICATIONS, SERVICES}
+    enum DropdownId {PURSUE, TESTERS, APPLICATIONS, SERVICES}
 
     const [currentDropdownId, setCurrentDropdownId] = useState<string | null>(null)
 
@@ -55,7 +54,7 @@ const NavBar = () => {
 
     const hideDropdown = (e: any) => { setCurrentDropdownId(null) }
 
-    const devices = [
+    const testers = [
     {title: 'R28', link: 'r28'},
     {title: 'U28', link: 'u28'},
     {title: 'R58', link: 'r58'},
@@ -175,12 +174,12 @@ const NavBar = () => {
 
                         <Nav.Link as={Link} href="/technology">Technology</Nav.Link>
 
-                        <NavDropdown title="Rope Testing Devices" 
-                                    id={DropdownId.DEVICES.toString()}
-                                    show={currentDropdownId === DropdownId.DEVICES.toString()}
+                        <NavDropdown title="Rope Testers" 
+                                    id={DropdownId.TESTERS.toString()}
+                                    show={currentDropdownId === DropdownId.TESTERS.toString()}
                                     onMouseEnter={showDropdown} 
                                     onMouseLeave={hideDropdown}>
-                                { devices.map((item,index) => <NavDropdown.Item key={index} as={Link} href="/devices/#{item.link}">{item.title}</NavDropdown.Item> )}
+                                { testers.map((item,index) => <NavDropdown.Item key={index} as={Link} href={"/testers/#" + item.link}>{item.title}</NavDropdown.Item> )}
                         </NavDropdown>
 
                         <NavDropdown title="Application Areas" 
@@ -189,7 +188,7 @@ const NavBar = () => {
                                 onMouseEnter={showDropdown} 
                                 onMouseLeave={hideDropdown}>
 
-                            { applications.map((item,index) => <NavDropdown.Item key={index} as={Link} href="/application/#{item.link}">{item.title}</NavDropdown.Item> )}
+                            { applications.map((item,index) => <NavDropdown.Item key={index} as={Link} href={"/application/#" + item.link}>{item.title}</NavDropdown.Item> )}
                         </NavDropdown>
 
                         <NavDropdown title="Services" 
@@ -198,7 +197,7 @@ const NavBar = () => {
                             onMouseEnter={showDropdown} 
                             onMouseLeave={hideDropdown}>
 
-                            { services.map((item,index) => <NavDropdown.Item key={index} as={Link} href="/services/#{item.link}">{item.title}</NavDropdown.Item> )}
+                            { services.map((item,index) => <NavDropdown.Item key={index} as={Link} href={"/services/#"  + item.link}>{item.title}</NavDropdown.Item> )}
                         </NavDropdown>
 
                         <Nav.Link as={Link} href="/training">Training</Nav.Link>

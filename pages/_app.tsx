@@ -6,6 +6,7 @@ import type { AppProps } from 'next/app'
 import Navbar from '@/components/navbar'
 import NextNProgress from 'nextjs-progressbar'
 import { SSRProvider } from 'react-bootstrap';
+import { Footer } from '@/components/footer'
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -13,6 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <SSRProvider>
       <Navbar />
       <Component {...pageProps} />
+      <Footer />
     </SSRProvider>
   )
 }

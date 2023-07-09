@@ -29,6 +29,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  font-size: 18px;
 }
 
 * {
@@ -40,6 +41,7 @@
 :root {
   --ropetest-red: #cf0000;
   --ropetest-grey: #f4f4f4;
+  --ropetest-link-hover-red: #c51d23;
 }
 
 
@@ -65,17 +67,22 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  color: var(--ropetest-link-hover-red);
+}
+
 .section {
-  /* padding: 50px 0px; */
-  background-color: var(--ropetest-grey);
+
   padding-left: 8% !important;
   padding-right: 8% !important;
 }
 
+.section-grey {
+  background-color: var(--ropetest-grey);
+}
+
 .section-white {
-  background: white;
-  padding-left: 8% !important;
-  padding-right: 8% !important;
+  background-color: white;
 }
 
 /* bootstrap mods */
@@ -91,4 +98,19 @@ a {
   transform: scale(0.8);
 }
 
+
+h1 {
+  font-size: 60px !important; 
+}
+
+h2 { 
+  font-size: 26px !important; 
+/* font-family: 'Oxygen-Bold'; */
+  font-weight: bold; 
+}
+
+h3 {
+  font-size: 20px !important;
+  /* font-family: SourceSansPro-Regular; */
+}
 

@@ -20,7 +20,7 @@ const NavBar = () => {
         setCurrentDropdownId(null) 
     }
 
-    const devices = [
+    const testers = [
         {title: 'R28', link: 'r28'},
         {title: 'U28', link: 'u28'},
         {title: 'R58', link: 'r58'},

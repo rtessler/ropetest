@@ -7,8 +7,15 @@
   min-height: 100vh;
 }
 
-.content {
-  height: 100vh;
+.parallaxOuter {
+  overflow: hidden;
+}
+
+.parallaxInner {
+  background-image: url('/assets/images/cablecar.webp'),  url('/ropetest.com.au/assets/images/cablecar.webp');
+  background-size: cover;
+
+  height: calc(100vh - 100px); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,29 +32,14 @@
   
   color: #cf0000;
   display: flex;
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
 }
 
 .fadeStart {
   opacity: 0;
   transform: translateY(-30px);
-}
-
-
-.h1 { font-size: 60px; 
-  font-family: 'Oxygen-Bold';
-  font-weight: bold; 
-}
-
-.h2 { font-size: 26px; 
-  font-family: 'Oxygen-Bold';
-  font-weight: bold; 
-}
-
-.h3 {
-  font-size: 20px;
-  font-family: SourceSansPro-Regular;
 }
 
 
@@ -188,7 +180,7 @@
   } */
 }
 
-/* Tablet and Smaller Desktop */
+/* Tablet and Smaller Desktop
 @media (min-width: 701px) and (max-width: 1120px) {
   .grid {
     grid-template-columns: repeat(2, 50%);
@@ -212,7 +204,7 @@
   to {
     transform: rotate(0deg);
   }
-}
+} */
 
 
 /* nav ul  {
