@@ -26,6 +26,19 @@ const pageText = {
             which are built and distributed under license by ROPESYS GmbH.`
         }
     },
+    pursue: {
+        about: {
+            title: 'About Us',
+            p1: `${companyName} is a full-range supplier of systems and devices for everything to do with ropes`,
+            p2: 'As a core competence, magnetic rope testing devices for non-destructive testing of steel ropes are built and sold under license from  ROTEC GmbH . The technology comes from the experts at  ROTEC GmbH , who deal with research and development related to ropes.',
+            heading1: `Welcome to  ${companyName}.`,
+            heading2: 'We look forward to a trusting cooperation.'
+        },
+        team: {
+            title: `Do you have questions about our areas of work, are you interested in rope tests or do you have a problem with your rope drive?
+            Our contact persons are at your disposal for your non-binding inquiry:`
+        }
+    },
     testers: {
         ropeTesters: 'rope testers',
         ropetestOffersRope: 'ROPETEST offers rope testing devices for a wide variety of applications designs',

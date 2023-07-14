@@ -11,8 +11,14 @@
   overflow: hidden;
 }
 
+.landingImage {
+  z-index: 0;
+}
+
+/* ,  url('/ropetest.com.au/assets/images/cablecar.webp'); */
+
 .parallaxInner {
-  background-image: url('/assets/images/cablecar.webp'),  url('/ropetest.com.au/assets/images/cablecar.webp');
+  background-image: url('../assets/images/cablecar2.webp'); 
   background-size: cover;
 
   height: calc(100vh - 100px); 

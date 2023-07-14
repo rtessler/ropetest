@@ -3,6 +3,7 @@ import styles from 'components/navbar.module.css';
 
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useEffect, useRef,  useState, MouseEventHandler, MouseEvent } from 'react';
+import navbarItems from './NavbarItems'
 
 import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
@@ -54,36 +55,36 @@ const NavBar = () => {
 
     const hideDropdown = (e: any) => { setCurrentDropdownId(null) }
 
-    const testers = [
-    {title: 'R28', link: 'r28'},
-    {title: 'U28', link: 'u28'},
-    {title: 'R58', link: 'r58'},
-    {title: 'U58', link: 'u58'},
-    {title: 'R83', link: 'r83'},
-    {title: 'U83', link: 'u83'}
-    ]
+    // const testers = [
+    // {title: 'R28', link: 'r28'},
+    // {title: 'U28', link: 'u28'},
+    // {title: 'R58', link: 'r58'},
+    // {title: 'U58', link: 'u58'},
+    // {title: 'R83', link: 'r83'},
+    // {title: 'U83', link: 'u83'}
+    // ]
 
-    const applications = [
-        {title: 'Cable Car', link: 'cable-car'},
-        {title: 'Cranes', link: 'cranes'},
-        {title: 'Offshore', link: 'offshore'},
-        {title: 'Amusement Facilities', link: 'amusement'},
-        {title: 'Ship Lifts', link: 'ship-lifts'},
-        {title: 'Stacker Cranes', link: 'stacker-cranes'},
-        {title: 'Cable Structures', link: 'cable-structures'},
-        {title: 'Mine Shafts and Hoists', link: 'mine-shafts-and-hoists'},
-        {title: 'Elevators', link: 'elevators'},
-        {title: 'Construction Machinery', link: 'construction-machinery'},
-        {title: 'Fibre Rope Applications', link: 'fibre-rope-applications'},
-    ]
+    // const applications = [
+    //     {title: 'Cable Car', link: 'cable-car'},
+    //     {title: 'Cranes', link: 'cranes'},
+    //     {title: 'Offshore', link: 'offshore'},
+    //     {title: 'Amusement Facilities', link: 'amusement'},
+    //     {title: 'Ship Lifts', link: 'ship-lifts'},
+    //     {title: 'Stacker Cranes', link: 'stacker-cranes'},
+    //     {title: 'Cable Structures', link: 'cable-structures'},
+    //     {title: 'Mine Shafts and Hoists', link: 'mine-shafts-and-hoists'},
+    //     {title: 'Elevators', link: 'elevators'},
+    //     {title: 'Construction Machinery', link: 'construction-machinery'},
+    //     {title: 'Fibre Rope Applications', link: 'fibre-rope-applications'},
+    // ]
 
-    const services = [
-        {title: 'Development Design and Construction', link: 'development'},
-        {title: 'Repair', link: 'repair'},
-        {title: 'Spare Parts', link: 'spare-parts'},
-        {title: 'Rope Inspection', link: 'inspection'},
-        {title: 'Calibration', link: 'calibration'}
-    ]
+    // const services = [
+    //     {title: 'Development Design and Construction', link: 'development'},
+    //     {title: 'Repair', link: 'repair'},
+    //     {title: 'Spare Parts', link: 'spare-parts'},
+    //     {title: 'Rope Inspection', link: 'inspection'},
+    //     {title: 'Calibration', link: 'calibration'}
+    // ]
 
     useEffect(() => {
 
@@ -157,13 +158,45 @@ const NavBar = () => {
                 <Navbar.Collapse id="main-navbar">
                     <Nav className="justify-content-end" style={{ width: "100%" }}>
 
+                        {
+                            navbarItems.map(item => {
+
+                                return item.link ?
+                                    <Nav.Link as={Link} href={item.link}>{item.title}</Nav.Link>
+                                    :
+                                    <NavDropdown title={item.title} 
+                                    id={item.id.toString()}
+                                    show={currentDropdownId === item.id.toString()}
+                                    onMouseEnter={showDropdown} 
+                                    onMouseLeave={hideDropdown}>
+                                        { item.items?.map((subitem,index) => <NavDropdown.Item key={index} as={Link} href={"/testers/#" + subitem.link}>{subitem.title}</NavDropdown.Item> )}
+                                    </NavDropdown>
+                            })
+                        }
+
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
+    );
+}
+
+export default NavBar;
+
+
+
+/*
+
+
                         <NavDropdown title="Pursue" 
                             id={DropdownId.PURSUE.toString()}
                             show={currentDropdownId === DropdownId.PURSUE.toString()}
                             onMouseEnter={showDropdown} 
                             onMouseLeave={hideDropdown}>
 
-                                    {/* <div ref={dropdownRef} className={styles.dropdownSpacer}></div> */}
+
+
+                                    { navbarItems.testers.map((item,index) => <NavDropdown.Item key={index} as={Link} href={"/testers/#" + item.link}>{item.title}</NavDropdown.Item> )}
                              
                                     <NavDropdown.Item as={Link} style={{top: menuTopOffset}}  href="/pursue/aboutus">About Us</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} style={{top: menuTopOffset}}  href="/pursue/contactperson">Contact Person</NavDropdown.Item>
@@ -179,7 +212,7 @@ const NavBar = () => {
                                     show={currentDropdownId === DropdownId.TESTERS.toString()}
                                     onMouseEnter={showDropdown} 
                                     onMouseLeave={hideDropdown}>
-                                { testers.map((item,index) => <NavDropdown.Item key={index} as={Link} href={"/testers/#" + item.link}>{item.title}</NavDropdown.Item> )}
+                                { navbarItems.testers.map((item,index) => <NavDropdown.Item key={index} as={Link} href={"/testers/#" + item.link}>{item.title}</NavDropdown.Item> )}
                         </NavDropdown>
 
                         <NavDropdown title="Application Areas" 
@@ -188,7 +221,7 @@ const NavBar = () => {
                                 onMouseEnter={showDropdown} 
                                 onMouseLeave={hideDropdown}>
 
-                            { applications.map((item,index) => <NavDropdown.Item key={index} as={Link} href={"/application/#" + item.link}>{item.title}</NavDropdown.Item> )}
+                            { navbarItems.applications.map((item,index) => <NavDropdown.Item key={index} as={Link} href={"/application/#" + item.link}>{item.title}</NavDropdown.Item> )}
                         </NavDropdown>
 
                         <NavDropdown title="Services" 
@@ -197,17 +230,10 @@ const NavBar = () => {
                             onMouseEnter={showDropdown} 
                             onMouseLeave={hideDropdown}>
 
-                            { services.map((item,index) => <NavDropdown.Item key={index} as={Link} href={"/services/#"  + item.link}>{item.title}</NavDropdown.Item> )}
+                            { navbarItems.services.map((item,index) => <NavDropdown.Item key={index} as={Link} href={"/services/#"  + item.link}>{item.title}</NavDropdown.Item> )}
                         </NavDropdown>
 
                         <Nav.Link as={Link} href="/training">Training</Nav.Link>
                         <Nav.Link as={Link} href="/faq">FAQ</Nav.Link>
                         <Nav.Link as={Link} href="/download">Download</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
-    );
-}
-
-export default NavBar;
+                        */

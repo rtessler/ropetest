@@ -15,19 +15,19 @@ interface Props {
 const Testers: React.FC = ({  }: Props) => {
 
     const items = [
-        {id: 'r28', image: '/assets/images/testers/R28-1024x974-1.webp',  title: pageText.testers.R28Title, text: pageText.testers.R28Text},
-        {id: 'u28', image: '/assets/images/testers/U28-2.webp', title: pageText.testers.U28Title, text: pageText.testers.U28Text},
-        {id: 'r58', image: '/assets/images/testers/R58-2.webp',title: pageText.testers.R58Title, text: pageText.testers.R58Text},
-        {id: 'u58', image: '/assets/images/testers/ropesys_U58.webp',title: pageText.testers.U58Title, text: pageText.testers.U58Text},
-        {id: 'r83', image: '/assets/images/testers/ropesys_R83.webp',title: pageText.testers.R83Title, text: pageText.testers.R83Text},
-        {id: 'u83', image: '/assets/images/testers/ropesys_U58_front.webp',title: pageText.testers.U83Title, text: pageText.testers.U83Text},
+        {id: 'r28', image: '../assets/images/testers/R28-1024x974-1.webp',  title: pageText.testers.R28Title, text: pageText.testers.R28Text},
+        {id: 'u28', image: '../assets/images/testers/U28-2.webp', title: pageText.testers.U28Title, text: pageText.testers.U28Text},
+        {id: 'r58', image: '../assets/images/testers/R58-2.webp',title: pageText.testers.R58Title, text: pageText.testers.R58Text},
+        {id: 'u58', image: '../assets/images/testers/ropesys_U58.webp',title: pageText.testers.U58Title, text: pageText.testers.U58Text},
+        {id: 'r83', image: '../assets/images/testers/ropesys_R83.webp',title: pageText.testers.R83Title, text: pageText.testers.R83Text},
+        {id: 'u83', image: '../assets/images/testers/ropesys_U58_front.webp',title: pageText.testers.U83Title, text: pageText.testers.U83Text},
     ]
 
     const carouselImages =  [
-        { path: 'assets/images/testers/carousel/R140_Wuerzburg-2.webp', alt: 'R140_Wuerzburg-2'},
-        { path: 'assets/images/testers/carousel/Pruefgeraete-2.webp', alt: 'Pruefgeraete-2'},
-        { path: 'assets/images/testers/carousel/Alpspitzbahn-1.webp', alt: 'Alpspitzbahn-1'},
-        { path: 'assets/images/testers/carousel/Erfurt_R58-3.webp', alt: 'Erfurt_R58-3'},
+        { path: '../assets/images/testers/carousel/R140_Wuerzburg-2.webp', alt: 'R140_Wuerzburg-2'},
+        { path: '../assets/images/testers/carousel/Pruefgeraete-2.webp', alt: 'Pruefgeraete-2'},
+        { path: '../assets/images/testers/carousel/Alpspitzbahn-1.webp', alt: 'Alpspitzbahn-1'},
+        { path: '../assets/images/testers/carousel/Erfurt_R58-3.webp', alt: 'Erfurt_R58-3'},
     ]
 
 
@@ -46,7 +46,6 @@ const Testers: React.FC = ({  }: Props) => {
                                 <h3>{item.title}</h3>
                                 <p>{item.text}</p>
                             </div>
-
                         </Col>
                     </Row>
                 })
