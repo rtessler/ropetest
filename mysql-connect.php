@@ -8,15 +8,15 @@
 <?php
 // phpinfo()
 
-// $servername = "localhost";
-$servername = "114.142.162.1";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "rest_api_demo";
 
-$database = "creekroa_ropetest";
-$username = "creekroa_robt";
-$password = "ropetestrobt123.";
-
-// $username = "root";
-// $password = "";
+// $servername = "114.142.162.1";
+// $database = "creekroa_ropetest";
+// $username = "creekroa_robt";
+// $password = "ropetestrobt123.";
 
 // Create connection using musqli_connect function
 $conn = mysqli_connect($servername, $username, $password, $database);

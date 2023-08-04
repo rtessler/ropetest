@@ -12,6 +12,8 @@ import { HiChevronDown } from "react-icons/hi";
 
 const Navbar = () => {
 
+    const [active, setActive ] = useState<number | null>(null)
+
     const navbarRef = useRef<HTMLDivElement>(null);
 
     const [dropDownOffset, setDropDownOffset] = useState<number>(28)
@@ -20,11 +22,9 @@ const Navbar = () => {
     
         if (navbarRef.current) {
             const height = navbarRef.current.clientHeight
-           
-            if (height !== 100)
-                setDropDownOffset(16)
-            else
-                setDropDownOffset(32)
+
+            const offset = height !== 100 ? 18 : 32
+            setDropDownOffset(offset)
         }
     }
 
@@ -63,7 +63,7 @@ const Navbar = () => {
 
             <div className='container'>
 
-                <Link className='rt-navbar-brand' href="/">ROPETEST</Link>
+                <Link className='rt-navbar-brand' href="/" onClick={() => setActive(null)}>ROPETEST</Link>
 
                 <MobileNavbar />
 
@@ -72,27 +72,21 @@ const Navbar = () => {
                     {
                         navbarItems.map(item => {
 
-
                             return item.link ? 
-                                <Link href={item.link} key={item.id}>{item.title}</Link>
+                                <Link href={item.link} key={item.id} className={ active === item.id ? 'active' : ''} onClick={() => setActive(item.id)}>{item.title}</Link>
                                 :
                                 <div className="rt-dropdown" key={item.id}>
-                                    <button className="rt-dropbtn" 
-                                        onMouseEnter={showDropdown}>{item.title}
-                                        {/* <i className="fa fa-caret-down"></i> */}
-
+                                    <button  onMouseEnter={showDropdown} className={'rt-dropbtn ' + (active === item.id ? 'active' : '')}>{item.title}
                                         <HiChevronDown  />
                                     </button>
             
                                     <div className="rt-dropdown-content">
                                         <div className='rt-dropdown-spacer' style={{height: dropDownOffset}} />
-                                        {item.items?.map((subitem, index) => <Link href={subitem.link} key={index}>{subitem.title}</Link> )}
+                                        {item.items?.map((subitem, index) => <Link href={subitem.link} key={index} onClick={() => setActive(item.id)}>{subitem.title}</Link> )}
                                     </div>
                                 </div> 
                         })
                     }
-
-                    {/* </div> */}
 
                 </div>
             </div>

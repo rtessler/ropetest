@@ -8,7 +8,7 @@ const nextConfig = {
   //assetPrefix: isProd ? '/ropetest.com.au/' : undefined,
   reactStrictMode: true,
   optimizeFonts: true,
-  basePath: '/ropetest.com.au',
+  basePath: isProd ? '/ropetest.com.au' : undefined,
   trailingSlash: true,
 }
 

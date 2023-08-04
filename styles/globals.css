@@ -1,24 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Kablammo&family=Oxygen:wght@300;700&family=Roboto:wght@100&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kablammo&family=Oxygen:wght@300;700&family=Roboto:wght@100&display=swap'); */
+@import './navbar';
 
-
-@font-face { 
-  font-family: 'Oxygen'; 
+@font-face {
+  font-family: "SourceSansPro-Light";
+  src: url(/assets/fonts/SourceSansPro-Light.ttf) format("truetype"), url(/ropetest.com.au/assets/fonts/SourceSansPro-Light.ttf) format("truetype");
 }
 
 
 @font-face {
   font-family: 'Oxygen-Bold';
-  src: url(/assets/fonts/oxygen.bold.ttf), url(/ropetest.com.au/assets/fonts/oxygen.bold.ttf);
+  src: url(/assets/fonts/Oxygen-Bold.ttf) format("truetype"), url(/ropetest.com.au/assets/fonts/Oxygen-Bold.ttf) format("truetype");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'SourceSansPro-Regular';
-  src: url(/assets/fonts/SourceSansPro-Regular.ttf), url(/ropetest.com.au/assets/fonts/SourceSansPro-Regular.ttf);
+  src: url(/assets/fonts/SourceSansPro-Regular.ttf) format("truetype"), url(/ropetest.com.au/assets/fonts/SourceSansPro-Regular.ttf) format("truetype");
   /* font-weight: 400; */
-  font-style: normal;
+  /* font-style: normal; */
 }
 
 :root {
@@ -30,18 +31,16 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   font-size: 18px;
+
+  --ropetest-red: #cf0000;
+  --ropetest-grey: #f4f4f4;
+  --ropetest-link-hover-red: #c51d23;
 }
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-}
-
-:root {
-  --ropetest-red: #cf0000;
-  --ropetest-grey: #f4f4f4;
-  --ropetest-link-hover-red: #c51d23;
 }
 
 html,
@@ -73,6 +72,13 @@ a:hover {
   background-color: white;
 }
 
+.mini-divider {
+  margin: 15px 0px;
+  max-width: 150px;
+  background-color: var(--ropetest-red);
+  height: 3px;
+}
+
 /* bootstrap mods */
 
 /* .navbar-nav .dropdown-menu { */
@@ -96,133 +102,52 @@ h1 {
 
 h2 { 
   font-size: 26px !important; 
-/* font-family: 'Oxygen-Bold'; */
   font-weight: bold; 
 }
 
 h3 {
   font-size: 20px !important;
-  /* font-family: SourceSansPro-Regular; */
 }
 
-.rt-navbar-brand {
-  font-size: 2rem;
+/* from ropesys css */
+
+body, div, p, li, label {
+  font-family: "SourceSansPro-Regular";
 }
 
-.rt-navbar {
-  background-color: rgba(var(--bs-dark-rgb))!important;
-  height: 100px;
-  top: 0;
-  z-index: 1020;
-  position:sticky;
+h1,h2,h3,strong,b{
+  font-family: "Oxygen-Bold";
 }
 
-.rt-navbar .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+body, div, p, li, label{
+  font-family: "SourceSansPro-Regular";
 }
 
-.rt-navbar a {
-  color: grey;
-  text-align: center;
-  padding: 14px 16px;
+h1 {
+    font-size: 60px;
+}
+
+textarea {
+  padding: 10px;
+  border: 1px solid var(--ropetest-red) !important;
+  width: 100%;
+  font-size: 22px;
+    /* margin: 20px 0px;
+    font-size: 22px; */
+}
+
+.btn-submit {
+  font-size: 20px;
   text-decoration: none;
-}
-
-.rt-dropdown {
-  overflow: hidden;
-  z-index: 2;
-  font-size: 18px;
-  white-space: nowrap;
-}
-
-.rt-dropdown .rt-dropbtn {
-  font-size: 18px;  
+  background-color: #CF0000;
+  width: fit-content;
+  color: #fff;
+  padding: 10px 20px;
+  margin-top: 10px;
   border: none;
-  outline: none;
-  color: grey;
-  padding: 14px 16px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
+  transition: 0.2s;
 }
 
-.rt-navbar a:hover, .rt-dropdown:hover .rt-dropbtn {
-  /* background-color: red; */
-  color: white;
-  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
-}
-
-.rt-dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-}
-
-.rt-dropdown-content a {
-  float: none;
-  color: black;
-  padding: 6px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-  font-size: 18px;
-  border-bottom-color: #dedede;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-}
-
-.rt-dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-.rt-dropdown:hover .rt-dropdown-content {
-  display: block;
-  z-index: 1;
-}
-
-.rt-dropdown-spacer {
-  background-color: rgba(var(--bs-dark-rgb));
-  height: 27px; 
-  border-bottom: solid;
-  border-bottom-color: red;
-  border-bottom-width: 3px;
-}
-/* .rt-dropdown .fa.fa-caret-down { margin-left: 5px; } */
-
-.rt-navbar-link-container { 
-  display: flex;  
-  /* justify-items: flex-start; */
-  align-items: center; 
-}
-
-
-.accordion-hide-carot .accordion-header .accordion-button::after {
-  content: none;
-}
-
-.accordion-hide-carot .accordion-header .accordion-button a {
-  padding: 0px;
-  color: black;
-
-}
-
-.accordion-header .accordion-button  {
-  font-weight: 700;
-  font-weight: 700;
-  font-size: 1.1em;
-}
-
-.accordion-body div {
-  padding: 10px 0px;
-  border-bottom: 1px solid var(--ropetest-grey);
-}
-
-.accordion-body div a {
-  color: black;
-  font-weight: 700;
-  font-size: 1.5em;
+.btn-submit:hover {
+  background-color: #000000;
 }
