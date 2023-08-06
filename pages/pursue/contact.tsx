@@ -1,10 +1,14 @@
 import { FormEvent, useState } from "react";
-import { Button, Form, Spinner, Container, Row, Col } from "react-bootstrap";
+import { Button, Form, Spinner, Container, Row, Col, Alert } from "react-bootstrap";
+import Constants from '../../config/constants'
 
 function ContactPage() {
-  const [saveResult, setSaveResult] = useState<any | null>(null);
+
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const [validated, setValidated] = useState<boolean>(false);
+  const [submitted, setSubmitted] = useState(false)
+  // const [validity, setValidity] = useState<boolean>(false);
 
   interface Data {
     call: boolean;
@@ -50,43 +54,97 @@ function ContactPage() {
     },
   ];
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault(); // dont refresh the page
+  function getFormVal(
+    formData: FormData,
+    name: string,
+    default_val: any = null
+  ) {
+    let val = formData.get(name);
+
+    if (val === null || val === undefined || val.length === 0) {
+      return default_val;
+    }
+
+    return val;
+  }
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    const form = event.currentTarget;
+
+    event.preventDefault();
+    // setValidity(form.checkValidity());
+    setValidated(true);
+
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+      setError(false);
+      setLoading(false);
+      return;
+    }
+
+    setValidated(true);
+
     // had to use stackoverflow to get this
-    const formData = new FormData(e.target as HTMLFormElement);
+    const formData = new FormData(event.target as HTMLFormElement);
 
-    console.log("call = ", formData.get("call"));
+    const data = {
+      first_name: getFormVal(formData, "first_name"),
+      last_name: getFormVal(formData, "last_name"),
+      email: getFormVal(formData, "email"),
+      company: getFormVal(formData, "company"),
+      address: getFormVal(formData, "address"),
+      country: getFormVal(formData, "country"),
 
-    let data = {
-      call: formData.get("call") ?? false,
-      info: formData.get("info") ?? false,
-      offer: formData.get("offer") ?? false,
+      action_call: formData.get("call") === "on" ? 1 : 0,
+      action_info: formData.get("info") === "on" ? 1 : 0,
+      action_offer: formData.get("offer") === "on" ? 1 : 0,
 
-      r28: formData.get("r28") ?? false,
-      r58: formData.get("r58") ?? false,
-      r83: formData.get("r83") ?? false,
-      r140: formData.get("r140") ?? false,
-      r140plus: formData.get("r140plus") ?? false,
-      u28: formData.get("u28") ?? false,
-      u58: formData.get("u58") ?? false,
-      u83: formData.get("u83") ?? false,
-      misc: formData.get("misc") ?? false,
+      r28: formData.get("r28") === "on" ? 1 : 0,
+      r58: formData.get("r58") === "on" ? 1 : 0,
+      r83: formData.get("r83") === "on" ? 1 : 0,
+      r140: formData.get("r140") === "on" ? 1 : 0,
+      r140plus: formData.get("r140plus") === "on" ? 1 : 0,
+      u28: formData.get("u28") === "on" ? 1 : 0,
+      u58: formData.get("u58") === "on" ? 1 : 0,
+      u83: formData.get("u83") === "on" ? 1 : 0,
+      misc: formData.get("misc") === "on" ? 1 : 0,
+
+      rope_diameter: getFormVal(formData, "rope_diameter"),
+      testing_experience:
+        formData.get("testing_experience") === "on" ? 1 : 0,
+      message: getFormVal(formData, "message"),
     };
-
-    //const offer = formData.get("call")?.toString().trim();
 
     if (data) {
       try {
-        setSaveResult(null);
+
         setError(false);
         setLoading(true);
 
-        console.log('bubmit')
+        console.log("submit, data:", JSON.stringify(data));
+
         // // access our api in the api folder
         // // not a 24/7 server
-        // const response = await fetch("/api/search-news?q=" + searchQuery);
-        // const articles: NewsArticle[] = await response.json();
-        // setSearchResults(articles);
+        
+        const url = Constants.baseUrl + '/inquiry'
+
+        //console.log(url)
+
+        const response = await fetch(url,
+          {
+            body: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/json"},
+            method: "POST",
+          }
+        );
+        const json = await response.json();
+        //console.log(await response.text())
+        console.log(json)
+
+        setSubmitted(true)
+        window.scrollTo(0, 0);
       } catch (error) {
         console.error(error);
         setError(true);
@@ -98,41 +156,87 @@ function ContactPage() {
 
   return (
     <Container className={"pt-5 pb-5 section"}>
-      <h1>Contact and directions</h1>
+      <h1>Contact and directions.</h1>
 
       <div className="mini-divider"></div>
 
-      <Form onSubmit={handleSubmit}>
+      {
+        submitted && <Alert key='success' variant='success'>
+          Request submitted, we will get back to you shortly
+        </Alert>
+      }
+
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Row>
           <Col xs={12} lg={4}>
-            <Form.Group className="mb-3" controlId="formName">
-              <Form.Control name="name" type="text" placeholder="Name"  required/>
+            <Form.Group className="mb-3" controlId="validationFirstName">
+              <Form.Control
+                name="first_name"
+                type="text"
+                placeholder="First Name"
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                Please provide a valid first name.
+              </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formEmail">
-              <Form.Control name="email" type="email" placeholder="Email" required />
+            <Form.Group className="mb-3" controlId="validationCustomEmail">
+              <Form.Control
+                name="email"
+                type="email"
+                placeholder="Email"
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                Please provide a valid email.
+              </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formAddress">
+            <Form.Group className="mb-3" controlId="validationCustomAddress">
               <Form.Control
                 name="address"
                 type="address"
                 placeholder="Address"
+                required
               />
+              <Form.Control.Feedback type="invalid">
+                Please provide a valid address.
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="validationCountry">
+              <Form.Control name="country" type="text" placeholder="Country" />
             </Form.Group>
           </Col>
 
           <Col xs={12} lg={4}>
-            <Form.Group className="mb-3" controlId="formCompany">
-              <Form.Control name="company" type="text" placeholder="Company" />
+            <Form.Group className="mb-3" controlId="formLastName">
+              <Form.Control
+                name="last_name"
+                type="text"
+                placeholder="Last Name"
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                Please provide a valid last name.
+              </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formPhone">
+            <Form.Group className="mb-3" controlId="validationCompany">
+              <Form.Control
+                name="company"
+                type="text"
+                placeholder="Company"
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                Please provide a valid company name.
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="validationPhone">
               <Form.Control name="phone" type="tel" placeholder="Phone" />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formAddress">
-              <Form.Control name="country" type="text" placeholder="Country" />
             </Form.Group>
           </Col>
 
@@ -158,10 +262,10 @@ function ContactPage() {
         <Row>
           <Col xs={12} lg={6}>
             {actions.map((item, index) => (
-              <div key={item.id}>
-                <Form.Check // prettier-ignore
+              <div key={index}>
+                <Form.Check 
                   type="checkbox"
-                  id={item.id}
+                  name={item.id}
                   label={item.text}
                 />
               </div>
@@ -176,9 +280,9 @@ function ContactPage() {
           <Col xs={12} lg={6}>
             {products.map((item, index) => (
               <div key={item.id}>
-                <Form.Check // prettier-ignore
+                <Form.Check 
                   type="checkbox"
-                  id={item.id}
+                  name={item.id}
                   label={item.text}
                 />
               </div>
@@ -190,53 +294,47 @@ function ContactPage() {
 
         <Row>
           <Col xs={12} lg={6}>
-            <Form.Group className="mb-3" controlId="rope-diameter">
+            <Form.Group className="mb-3" controlId="rope_diameter">
               <Form.Label>
                 My ropes are in the diameter range from to:
               </Form.Label>
-              <Form.Control as="textarea" rows={6} />
+              <Form.Control as="textarea" rows={6} name="rope_diameter" />
             </Form.Group>
           </Col>
         </Row>
 
-        <Form.Check // prettier-ignore
-          type="radio"
-          color="red"
-          id="experience"
-          name="group1"
-          label="I have experience with magnetic rope testing"
-        />
-
-        <Form.Check // prettier-ignore
-          type="radio"
-          color="red"
-          id="experience"
-          name="group1"
-          label="I have no experience with magnetic rope testing"
-        />
+        <Form.Group className="mb-3" controlId="testing_experience">
+          <Form.Check 
+            type="switch"
+            color='green'
+            name="testing_experience"
+            label="I have experience with magnetic rope testing"
+          />
+        </Form.Group>
 
         <br></br>
 
         <Row>
           <Col xs={12} lg={6}>
-            <Form.Group className="mb-3" controlId="message">
-              <Form.Control as="textarea" rows={6} placeholder="Your message" />
+            <Form.Group className="mb-3" controlId="formMessage">
+              <Form.Control
+                as="textarea"
+                rows={6}
+                placeholder="Your message"
+                name="message"
+              />
             </Form.Group>
           </Col>
         </Row>
 
-        <Button type="submit" disabled={loading} className='mb-3 btn-submit'>
+        <Button type="submit" disabled={loading} className="mb-3 btn-submit">
           Send
         </Button>
       </Form>
 
       <div className="d-flex flex-column align-items-center">
         {loading && <Spinner animation="border" />}
-        {error && <p>Something went wrong. Please try again.</p>}
-        {saveResult?.length === 0 && (
-          <p>Nothing found. Try a different query!</p>
-        )}
-        {/* {searchResults && <NewsArticlesGrid articles={searchResults} />} */}
+        {error && <p className='error'>Something went wrong. Please try again.</p>}
       </div>
     </Container>
   );

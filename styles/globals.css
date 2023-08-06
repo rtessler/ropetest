@@ -1,31 +1,36 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kablammo&family=Oxygen:wght@300;700&family=Roboto:wght@100&display=swap'); */
-@import './navbar';
+@import "./navbar";
 
 @font-face {
   font-family: "SourceSansPro-Light";
-  src: url(/assets/fonts/SourceSansPro-Light.ttf) format("truetype"), url(/ropetest.com.au/assets/fonts/SourceSansPro-Light.ttf) format("truetype");
+  src: url(/assets/fonts/SourceSansPro-Light.ttf) format("truetype"),
+    url(/ropetest.com.au/assets/fonts/SourceSansPro-Light.ttf)
+      format("truetype");
 }
 
-
 @font-face {
-  font-family: 'Oxygen-Bold';
-  src: url(/assets/fonts/Oxygen-Bold.ttf) format("truetype"), url(/ropetest.com.au/assets/fonts/Oxygen-Bold.ttf) format("truetype");
+  font-family: "Oxygen-Bold";
+  src: url(/assets/fonts/Oxygen-Bold.ttf) format("truetype"),
+    url(/ropetest.com.au/assets/fonts/Oxygen-Bold.ttf) format("truetype");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'SourceSansPro-Regular';
-  src: url(/assets/fonts/SourceSansPro-Regular.ttf) format("truetype"), url(/ropetest.com.au/assets/fonts/SourceSansPro-Regular.ttf) format("truetype");
+  font-family: "SourceSansPro-Regular";
+  src: url(/assets/fonts/SourceSansPro-Regular.ttf) format("truetype"),
+    url(/ropetest.com.au/assets/fonts/SourceSansPro-Regular.ttf)
+      format("truetype");
   /* font-weight: 400; */
   /* font-style: normal; */
 }
 
 :root {
-  --font-mono: ui-monospace, SourceSansPro-Regular, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-    'Roboto Mono', 'Oxygen Mono', 'Oxygen-Bold', 'Ubuntu Monospace', 'Source Code Pro',
-    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+  --font-mono: ui-monospace, SourceSansPro-Regular, Menlo, Monaco,
+    "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", "Oxygen Mono",
+    "Oxygen-Bold", "Ubuntu Monospace", "Source Code Pro", "Fira Mono",
+    "Droid Sans Mono", "Courier New", monospace;
 
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -59,7 +64,6 @@ a:hover {
 }
 
 .section {
-
   padding-left: 8% !important;
   padding-right: 8% !important;
 }
@@ -82,27 +86,26 @@ a:hover {
 /* bootstrap mods */
 
 /* .navbar-nav .dropdown-menu { */
-  /* border-radius: 0px; */
-  /* border-top-color: red;
+/* border-radius: 0px; */
+/* border-top-color: red;
   border-top-width: 4px; */
-  /* top: 56px; */
+/* top: 56px; */
 
-  /* top: calc(100% + 20px); */
-  /* padding-top: 100px; */
+/* top: calc(100% + 20px); */
+/* padding-top: 100px; */
 /* } */
 
 /* .image-carousel img {
   transform: scale(0.8);
 } */
 
-
 h1 {
-  font-size: 60px !important; 
+  font-size: 60px !important;
 }
 
-h2 { 
-  font-size: 26px !important; 
-  font-weight: bold; 
+h2 {
+  font-size: 26px !important;
+  font-weight: bold;
 }
 
 h3 {
@@ -111,20 +114,32 @@ h3 {
 
 /* from ropesys css */
 
-body, div, p, li, label {
+body,
+div,
+p,
+li,
+label {
   font-family: "SourceSansPro-Regular";
 }
 
-h1,h2,h3,strong,b{
+h1,
+h2,
+h3,
+strong,
+b {
   font-family: "Oxygen-Bold";
 }
 
-body, div, p, li, label{
+body,
+div,
+p,
+li,
+label {
   font-family: "SourceSansPro-Regular";
 }
 
 h1 {
-    font-size: 60px;
+  font-size: 60px;
 }
 
 textarea {
@@ -132,14 +147,14 @@ textarea {
   border: 1px solid var(--ropetest-red) !important;
   width: 100%;
   font-size: 22px;
-    /* margin: 20px 0px;
+  /* margin: 20px 0px;
     font-size: 22px; */
 }
 
 .btn-submit {
   font-size: 20px;
   text-decoration: none;
-  background-color: #CF0000;
+  background-color: #cf0000;
   width: fit-content;
   color: #fff;
   padding: 10px 20px;
@@ -150,4 +165,8 @@ textarea {
 
 .btn-submit:hover {
   background-color: #000000;
+}
+
+.error {
+  color: var(--ropetest-red);
 }
