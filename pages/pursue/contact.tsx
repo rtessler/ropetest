@@ -5,7 +5,7 @@ import Constants from '../../config/constants'
 function ContactPage() {
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<any | null>(null);
   const [validated, setValidated] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState(false)
   // const [validity, setValidity] = useState<boolean>(false);
@@ -78,7 +78,7 @@ function ContactPage() {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-      setError(false);
+      setError(null);
       setLoading(false);
       return;
     }
@@ -95,6 +95,7 @@ function ContactPage() {
       company: getFormVal(formData, "company"),
       address: getFormVal(formData, "address"),
       country: getFormVal(formData, "country"),
+      phone: getFormVal(formData, "phone"),
 
       action_call: formData.get("call") === "on" ? 1 : 0,
       action_info: formData.get("info") === "on" ? 1 : 0,
@@ -119,17 +120,16 @@ function ContactPage() {
     if (data) {
       try {
 
-        setError(false);
+        setError(null);
         setLoading(true);
 
         console.log("submit, data:", JSON.stringify(data));
 
-        // // access our api in the api folder
-        // // not a 24/7 server
+        // access our api in the api folder
         
         const url = Constants.baseUrl + '/inquiry'
 
-        //console.log(url)
+        console.log(url)
 
         const response = await fetch(url,
           {
@@ -139,15 +139,15 @@ function ContactPage() {
             method: "POST",
           }
         );
-        const json = await response.json();
-        //console.log(await response.text())
-        console.log(json)
+        //const json = await response.json();
+        console.log(await response.text())
+        //console.log(json)
 
         setSubmitted(true)
         window.scrollTo(0, 0);
       } catch (error) {
         console.error(error);
-        setError(true);
+        setError(error);
       } finally {
         setLoading(false);
       }
@@ -334,7 +334,7 @@ function ContactPage() {
 
       <div className="d-flex flex-column align-items-center">
         {loading && <Spinner animation="border" />}
-        {error && <p className='error'>Something went wrong. Please try again.</p>}
+        {error && <p className='error'>Something went wrong. Error: {error}</p>}
       </div>
     </Container>
   );
